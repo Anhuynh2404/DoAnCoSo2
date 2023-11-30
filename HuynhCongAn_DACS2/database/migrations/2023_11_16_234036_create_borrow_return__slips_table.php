@@ -1,0 +1,37 @@
+<?php
+
+use App\Models\Card;
+use App\Models\User;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('borrow_return__slips', function (Blueprint $table) {
+            $table->id();
+            $table->integer('quantity');
+            $table->date('borrowed_date');
+            $table->foreignIdFor(Card::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('borrow_return__slips');
+    }
+};
