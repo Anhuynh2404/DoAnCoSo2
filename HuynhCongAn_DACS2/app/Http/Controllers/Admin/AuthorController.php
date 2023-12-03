@@ -50,7 +50,7 @@ class AuthorController extends Controller
     {
         $dataCreate = $request->all();
         $author = $this->author->create($dataCreate);
-        return to_route('author.index')->with(['message'=> 'Tạo mới thành công']);
+        return to_route('authors.index')->with(['message'=> 'Tạo mới thành công']);
     }
 
     /**
@@ -88,7 +88,7 @@ class AuthorController extends Controller
         $author = $this->author->findOrFail($id);
         $dataUpdate = $request->all();
         $author->update($dataUpdate);
-        return to_route('author.index')->with(['message'=> 'Chỉnh sửa thành công']);
+        return to_route('authors.index')->with(['message'=> 'Chỉnh sửa thành công']);
     }
 
     /**
@@ -101,6 +101,6 @@ class AuthorController extends Controller
     {
         $author = $this->author->findOrFail($id);
         $author->delete();
-        return to_route('author.index')->with(['message'=> 'Xóa thành công']);
+        return to_route('authors.index')->with(['message'=> 'Xóa thành công']);
     }
 }

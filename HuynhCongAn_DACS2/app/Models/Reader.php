@@ -21,4 +21,10 @@ class Reader extends Model
         'class_of',
         'note',
     ];
+    // Card.php
+public function reader()
+{
+    return $this->belongsTo(Reader::class);
+}
+
 }

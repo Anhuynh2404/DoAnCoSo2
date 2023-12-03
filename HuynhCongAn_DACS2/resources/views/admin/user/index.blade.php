@@ -23,7 +23,7 @@
         </div>
         <div class="ms-auto d-flex">
           <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-          <a href="{{route('user.create')}}" type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
+          <a href="{{route('users.create')}}" type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
             <span class="btn-inner--icon">
               <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
                 <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
@@ -81,14 +81,14 @@
                     <td class="align-middle">
                         <div class="d-flex mt-2">
                             <div>
-                                <a href="{{route('user.edit',$user->id)}}" type="button" class="btn btn-dark btn-icon px-3">
+                                <a href="{{route('users.edit',$user->id)}}" type="button" class="btn btn-dark btn-icon px-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                                     </svg>
                                 </a>
                                </div>
                                <div class="px-2">
-                                <form action="{{route('user.destroy',$user->id)}}" method="post" id="form-delete{{$user->id}}">
+                                <form action="{{route('users.destroy',$user->id)}}" method="post" id="form-delete{{$user->id}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-dark btn-icon px-3 btn-delete"  data-id="{{$user->id}}">

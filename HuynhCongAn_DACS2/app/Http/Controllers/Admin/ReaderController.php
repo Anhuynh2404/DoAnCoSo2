@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Card;
+use App\Models\Reader;
 use Illuminate\Http\Request;
 
 class ReaderController extends Controller
@@ -12,9 +14,16 @@ class ReaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $reader, $card;
+    public function __construct(Reader $reader, Card $card){
+        $this->reader = $reader;
+        $this->card = $card;
+    }
     public function index()
     {
-        return View('admin.reader.index');
+        $cards = $this->card->latest('id')->paginate(5);
+        return View('admin.reader.index', compact('cards'));
     }
 
     /**

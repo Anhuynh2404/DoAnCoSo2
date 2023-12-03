@@ -45,7 +45,7 @@ class CategoryController extends Controller
     {
         $dataCreate = $request->all();
         $category = $this->category->create($dataCreate);
-        return to_route('category.index')->with(['message'=> 'Thêm thành công '.$category->name]);
+        return to_route('categories.index')->with(['message'=> 'Thêm thành công '.$category->name]);
 
     }
 
@@ -85,7 +85,7 @@ class CategoryController extends Controller
         $dataUpdate = $request->all();
         $category = $this->category->findOrFail($id);
         $category->update($dataUpdate);
-        return to_route('category.index')->with(['message' => 'Chỉnh sửa thành công ']);
+        return to_route('categories.index')->with(['message' => 'Chỉnh sửa thành công ']);
     }
 
     /**
@@ -99,7 +99,7 @@ class CategoryController extends Controller
 
         $category = $this->category->findOrFail($id);
         $category->delete();
-        return to_route('category.index')->with(['message' => 'Xóa thành công '. $category->name]);
+        return to_route('categories.index')->with(['message' => 'Xóa thành công '. $category->name]);
 
     }
 }

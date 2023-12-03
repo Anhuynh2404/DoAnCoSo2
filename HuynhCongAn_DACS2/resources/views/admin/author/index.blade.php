@@ -23,7 +23,7 @@
                 </div>
                 <div class="ms-auto d-flex">
                     <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-                    <a href="{{ route('author.create') }}" type="button"
+                    <a href="{{ route('authors.create') }}" type="button"
                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                         <span class="btn-inner--icon">
                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($authors as $author)
+                        @foreach ($ss as $author)
                             <tr>
                                 <td class="w-10">
                                     <p class="text-sm text-dark font-weight-semibold mb-0 text-center ">{{ $author->id }}

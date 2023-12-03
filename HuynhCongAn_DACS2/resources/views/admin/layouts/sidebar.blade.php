@@ -36,6 +36,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            {{-- @hasrole('super-admin') --}}
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('user.*') ? 'active' : '' }} {{ request()->routeIs('role.*') ? 'active' : '' }}"
                     data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -62,22 +63,23 @@
                 <div class="collapse" id="collapseExample">
                     <ol class="navbar-nav">
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link collapse-link position-relative ms-0 ps-2 py-2  {{ request()->routeIs('user.index') ? 'active' : '' }}"
-                                href="{{ route('user.index') }}">
+                            <a class="nav-link collapse-link position-relative ms-0 ps-2 py-2  {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                                href="{{ route('users.index') }}">
                                 <span class="nav-link-text ms-1">Tài khoản</span>
                             </a>
                         </li>
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link collapse-link position-relative ms-0 ps-2 py-2  {{ request()->routeIs('role.index') ? 'active' : '' }} "
-                                href="{{ route('role.index') }}">
+                            <a class="nav-link collapse-link position-relative ms-0 ps-2 py-2  {{ request()->routeIs('roles.index') ? 'active' : '' }} "
+                                href="{{ route('roles.index') }}">
                                 <span class="nav-link-text ms-1">Nhóm chức năng</span>
                             </a>
                         </li>
                     </ol>
                 </div>
             </li>
+            {{-- @endhasrole --}}
             <li class="nav-item collapse show">
-                <a class="nav-link {{ request()->routeIs('category.*') ? 'active' : '' }}  {{ request()->routeIs('author.*') ? 'active' : '' }} {{ request()->routeIs('publisher.*') ? 'active' : '' }}"
+                <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}  {{ request()->routeIs('authors.*') ? 'active' : '' }} {{ request()->routeIs('publishers.*') ? 'active' : '' }}"
                     data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false"
                     aria-controls="collapseExample1">
                     <div
@@ -102,26 +104,26 @@
                 <div class="collapse" id="collapseExample1">
                     <ol class="navbar-nav">
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('reader.*') ? 'active' : '' }} "
-                                href="{{ route('publisher.index') }}">
+                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('readers.*') ? 'active' : '' }} "
+                                href="{{ route('readers.index') }}">
                                 <span class="nav-link-text ms-1">Bạn đọc</span>
                             </a>
                         </li>
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('publisher.*') ? 'active' : '' }} "
-                                href="{{ route('publisher.index') }}">
+                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('publishers.*') ? 'active' : '' }} "
+                                href="{{ route('publishers.index') }}">
                                 <span class="nav-link-text ms-1">Nhà xuất bản</span>
                             </a>
                         </li>
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('category.*') ? 'active' : '' }} "
-                                href="{{ route('category.index') }}">
+                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('categorys.*') ? 'active' : '' }} "
+                                href="{{ route('categories.index') }}">
                                 <span class="nav-link-text ms-1">Thể loại</span>
                             </a>
                         </li>
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('author.*') ? 'active' : '' }}"
-                                href="{{ route('author.index') }}">
+                            <a class="nav-link position-relative ms-0 ps-2 py-2 {{ request()->routeIs('authors.*') ? 'active' : '' }}"
+                                href="{{ route('authors.index') }}">
                                 <span class="nav-link-text ms-1">Tác giả</span>
                             </a>
                         </li>

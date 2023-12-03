@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="card-body px-0 py-0">
-        <form action="{{route('role.store')}}" method="post">
+        <form action="{{route('roles.store')}}" method="post">
             @csrf
             <div class="form-group px-4 mt-3">
                 <label for="example-text-input" class="form-control-label">Tên</label>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="ms-auto d-flex px-4 mt-4">
-                <a href="{{route('role.index')}}" type="button" class="btn btn-sm btn-white me-2"> Hủy </a>
+                <a href="{{route('roles.index')}}" type="button" class="btn btn-sm btn-white me-2"> Hủy </a>
                 <button  type="submit" class="btn btn-submit btn-sm btn-dark btn-icon d-flex align-items-center me-2" name="submit">
                   <span class="btn-inner--icon">
                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">

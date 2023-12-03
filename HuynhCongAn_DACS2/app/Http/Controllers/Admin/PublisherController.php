@@ -47,7 +47,7 @@ class PublisherController extends Controller
     {
         $dataCreate = $request->all();
         $this->publisher->create($dataCreate);
-        return redirect()->route('publisher.index')->with(['message'=>'Tạo mới thành công!']);
+        return redirect()->route('publishers.index')->with(['message'=>'Tạo mới thành công!']);
     }
 
     /**
@@ -85,7 +85,7 @@ class PublisherController extends Controller
         $dataUpdate = $request->all();
         $publisher = $this->publisher->findOrFail($id);
         $publisher->update($dataUpdate);
-        return redirect()->route('publisher.index')->with(['message'=>'Cập nhật thành công!']);
+        return redirect()->route('publishers.index')->with(['message'=>'Cập nhật thành công!']);
     }
 
     /**
@@ -98,6 +98,6 @@ class PublisherController extends Controller
     {
         $publisher = $this->publisher->findOrFail($id);
         $publisher->delete();
-        return redirect()->route('publisher.index')->with(['message'=>'Xóa thành công!']);
+        return redirect()->route('publishers.index')->with(['message'=>'Xóa thành công!']);
     }
 }

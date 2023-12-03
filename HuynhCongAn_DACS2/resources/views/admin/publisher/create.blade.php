@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="card-body px-0 py-0">
-            <form action="{{route('publisher.store')}}" method="POST" >
+            <form action="{{route('publishers.store')}}" method="POST" >
                 @csrf
                 <div class="form-group px-4">
                     <label for="example-text-input" class="form-control-label">Nhà xuất bản</label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="modal-footer px-4 mt-4 ">
                     <div class=" px-3">
-                        <a href="{{route('publisher.index')}}" type="button" class="btn btn-white " >Hủy</a>
+                        <a href="{{route('publishers.index')}}" type="button" class="btn btn-white " >Hủy</a>
                     </div>
                     <div class="">
                         <button type="submit" class="btn btn-dark">Thêm mới</button>

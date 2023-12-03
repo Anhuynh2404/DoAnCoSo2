@@ -59,7 +59,7 @@ class UserController extends Controller
         $user = $this->user->create($dataCreate);
         $user->images()->create(['url' => $dataCreate['image']]);
         $user->roles()->attach($dataCreate['role_ids']);
-        return to_route('user.index')->with(['message'=> 'Tạo mới thành công']);
+        return to_route('users.index')->with(['message'=> 'Tạo mới thành công']);
     }
 
     /**
@@ -108,7 +108,7 @@ class UserController extends Controller
         $user->update($dataUpdate);
         $user->images()->updateOrCreate(['url' => $dataUpdate['image']]);
         $user->roles()->sync($dataUpdate['role_ids'] ?? []);
-        return to_route('user.index')->with(['message'=> 'Chỉnh sửa thành công']);
+        return to_route('users.index')->with(['message'=> 'Chỉnh sửa thành công']);
     }
 
     /**
@@ -125,7 +125,7 @@ class UserController extends Controller
         $this->user->deleteImage($imageName);
         $user->images()->delete();
         $user->delete();
-        return to_route('user.index')->with(['message'=> 'Xóa thành công']);
+        return to_route('users.index')->with(['message'=> 'Xóa thành công']);
 
 
 

@@ -186,45 +186,59 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="">
-                                            <div class="d-flex py-1">
-                                                <div class="my-auto">
-                                                    <img src="../assets/img/team-2.jpg"
-                                                        class="avatar avatar-sm border-radius-sm  me-3 ">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="text-sm font-weight-normal mb-1">
-                                                        <span class="font-weight-bold">New message</span> from Laur
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+
                                 @else
-                                    <li class="mb-2">
-                                        {{-- <a class="dropdown-item border-radius-md" href="javascript:;">
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="">
                                         <div class="d-flex py-1">
+                                            <div class="my-auto">
+                                                <img src="../assets/img/team-2.jpg"
+                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
+                                            </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal">
-                                                    <span class="font-weight-bold">Đăng xuất</span>
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">Thông tin tài khoản</span>
                                                 </h6>
                                             </div>
                                         </div>
-                                    </a> --}}
-                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <div class="d-flex">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                        <span class="font-weight-bold">{{ __('Đăng xuất') }}</span>
-                                                </div>
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="">
+                                        <div class="d-flex py-1">
+                                            <div class="my-auto">
+                                                <img src="../assets/img/team-2.jpg"
+                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
                                             </div>
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">Đổi mật khẩu</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <div class="d-flex py-1">
+                                            <div class="my-auto">
+                                                <img src="../assets/img/team-2.jpg"
+                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">{{ __('Đăng xuất') }}</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf
                                         </form>
-                                    </li>
+                                </li>
+
                                 @endguest
                             </ul>
                         </li>

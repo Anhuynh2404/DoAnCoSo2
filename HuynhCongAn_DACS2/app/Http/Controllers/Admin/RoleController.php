@@ -47,7 +47,7 @@ class RoleController extends Controller
         $roles = Role::create($dataCreate);
         $roles->permissions()->attach($dataCreate['permission_ids']);
 
-        return to_route('role.create')->with(['message' => 'Create Successfully']);
+        return to_route('roles.index')->with(['message' => 'Create Successfully']);
     }
 
     /**
@@ -88,7 +88,7 @@ class RoleController extends Controller
         $role->update($dataUpdate);
         $role->permissions()->sync($dataUpdate['permission_ids']);
 
-        return to_route('role.index')->with(['message'=>'Update Successfully']);
+        return to_route('roles.index')->with(['message'=>'Update Successfully']);
     }
 
     /**
@@ -100,6 +100,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
          Role::destroy($id);
-         return to_route('role.index')->with(['message'=>'Delete Successfully']);
+         return to_route('roles.index')->with(['message'=>'Delete Successfully']);
     }
 }

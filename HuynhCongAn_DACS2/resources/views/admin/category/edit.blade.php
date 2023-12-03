@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="card-body px-0 py-0">
-            <form action="{{route('category.update', $category->id)}}" method="POST" >
+            <form action="{{route('categories.update', $category->id)}}" method="POST" >
                 @csrf
                 @method('PUT')
                 <div class="form-group px-4">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer px-4 mt-4 ">
                     <div class=" px-3">
-                        <a href="{{route('category.index')}}" type="button" class="btn btn-white " >Hủy</a>
+                        <a href="{{route('categories.index')}}" type="button" class="btn btn-white " >Hủy</a>
                     </div>
                     <div class="">
                         <button type="submit" class="btn btn-dark">Chỉnh sửa</button>

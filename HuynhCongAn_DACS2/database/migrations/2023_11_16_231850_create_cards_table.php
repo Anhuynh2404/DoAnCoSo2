@@ -16,9 +16,7 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->text('date');
             $table->foreignIdFor(Reader::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

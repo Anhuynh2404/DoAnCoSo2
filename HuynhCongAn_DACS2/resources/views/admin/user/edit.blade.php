@@ -12,7 +12,7 @@
         </div>
         <div class="ms-auto d-flex">
           <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-          <a href="{{route('user.create')}}" type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
+          <a href="{{route('users.create')}}" type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
             <span class="btn-inner--icon">
               <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
                 <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="card-body px-0 py-0">
-            <form action="{{route('user.update',$user->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('users.update',$user->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="form-group px-4 d-flex row">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="ms-auto d-flex px-4 mt-4">
-                    <a href="{{route('user.index')}}" type="button" class="btn btn-sm btn-white me-2"> Hủy </a>
+                    <a href="{{route('users.index')}}" type="button" class="btn btn-sm btn-white me-2"> Hủy </a>
                     <button  type="submit" class="btn btn-submit btn-sm btn-dark btn-icon d-flex align-items-center me-2" name="submit">
                       <span class="btn-inner--icon">
                         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">

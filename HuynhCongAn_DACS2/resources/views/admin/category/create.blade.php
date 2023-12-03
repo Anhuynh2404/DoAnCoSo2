@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="card-body px-0 py-0">
-            <form action="{{route('category.store')}}" method="POST" >
+            <form action="{{route('categories.store')}}" method="POST" >
                 @csrf
                 <div class="form-group px-4">
                     <label for="example-text-input" class="form-control-label">Tên thể loại</label>
@@ -37,7 +37,7 @@
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description">{{old('description')}}</textarea>
                 </div>
                 <div class="modal-footer px-4 mt-4 ">
-                    <a href="{{route('category.index')}}" type="button" class="btn btn-white " >Hủy</a>
+                    <a href="{{route('categories.index')}}" type="button" class="btn btn-white " >Hủy</a>
                     <button type="submit" class="btn btn-dark">Tạo mới</button>
                   </div>
             </form>

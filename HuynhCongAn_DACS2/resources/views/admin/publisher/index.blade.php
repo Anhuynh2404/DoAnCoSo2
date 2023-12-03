@@ -23,7 +23,7 @@
                 </div>
                 <div class="ms-auto d-flex">
                     <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-                    <a href="{{ route('publisher.create') }}" type="button"
+                    <a href="{{ route('publishers.create') }}" type="button"
                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                         <span class="btn-inner--icon">
                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -79,7 +79,7 @@
                                 <td class="align-middle w-10 ">
                                     <div class="d-flex mt-2 ">
                                         <div class=" px-2">
-                                            <a href="{{ route('publisher.edit', $publisher->id) }}" type="button"
+                                            <a href="{{ route('publishers.edit', $publisher->id) }}" type="button"
                                                 class="btn btn-dark btn-icon px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -91,7 +91,7 @@
                                             </a>
                                         </div>
                                         <div class=" px-2">
-                                            <form action="{{ route('publisher.destroy', $publisher->id) }}" method="post"
+                                            <form action="{{ route('publishers.destroy', $publisher->id) }}" method="post"
                                                 id="form-delete{{ $publisher->id }}">
                                                 @csrf
                                                 @method('DELETE')

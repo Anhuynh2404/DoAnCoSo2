@@ -9,9 +9,15 @@ class Card extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'start_date',
         'end_date',
         'note',
     ];
+
+    // Card.php
+    public function reader()
+    {
+        return $this->belongsTo(Reader::class);
+    }
 }

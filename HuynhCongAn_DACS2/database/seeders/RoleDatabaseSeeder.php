@@ -18,10 +18,10 @@ class RoleDatabaseSeeder extends Seeder
     public function run()
     {
         $roles =[
-            ['name'=>'admin', 'display_name'=>'admin', 'group'=>'system','description'=>'The name of the'],
+            ['name'=>'super-admin', 'display_name'=>'admin', 'group'=>'system','description'=>'The name of the'],
             ['name'=>'thu-thu', 'display_name'=>'Thủ thư', 'group'=>'system','description'=>''],
-            ['name'=>'can-bo-thu-vien', 'display_name'=>'Cán bộ thư viện', 'group'=>'system','description'=>''],
-            ['name'=>'giang-vien', 'display_name'=>'Giáo viên', 'group'=>'system','description'=>'The name of the'],
+            ['name'=>'can-bo-thu-vien', 'display_name'=>'Cán bộ thư viện', 'group'=>'user','description'=>''],
+            ['name'=>'giang-vien', 'display_name'=>'Giáo viên', 'group'=>'user','description'=>'The name of the'],
         ];
         foreach($roles as $role){
             Role::updateOrCreate($role);
@@ -77,13 +77,15 @@ class RoleDatabaseSeeder extends Seeder
             Permission::updateOrCreate($permissions);
         }
 
-        $admin = User::where('anhuynhadmin@gmail.com')->first();
+        // $admin = User::where('anhuynhadmin@gmail.com')->first();
 
-        if (!$admin){
-            $admin = User::factory()->create([
-                'email' => 'anhuynhadmin@gmail.com',
-            ]);
-            $admin->assignRole('admin');
-        }
+        
+            // $admin = User::factory()->create([
+            //     'email' => 'anhuynhadmin@gmail.com',
+            //     'password' => '1234432',
+            // ]);
+            // $admin->assignRole('super-admin');
+        
+
     }
 }

@@ -12,7 +12,7 @@
                 </div>
                 <div class="ms-auto d-flex">
                     <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-                    <a href="{{ route('book.create') }}" type="button"
+                    <a href="{{ route('books.create') }}" type="button"
                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                         <span class="btn-inner--icon">
                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card-body px-0 py-0">
-            <form action="{{ route('book.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="d-flex">
@@ -114,7 +114,7 @@
 
                 <div class="modal-footer px-4 mt-4 ">
                     <div class=" px-3">
-                        <a href="{{route('book.index')}}" type="button" class="btn btn-white " >Hủy</a>
+                        <a href="{{route('books.index')}}" type="button" class="btn btn-white " >Hủy</a>
                     </div>
                     <div class="">
                         <button type="submit" class="btn btn-dark">Chỉnh sửa</button>

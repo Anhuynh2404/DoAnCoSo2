@@ -132,7 +132,7 @@ class BookController extends Controller
         $book->assignPublisher($dataUpdate['publisher_ids']);
         $book->assignAuthor($dataUpdate['author_ids']);
 
-        return redirect()->route('book.index')->with(['message' => 'Chỉnh sửa thành công']);
+        return redirect()->route('books.index')->with(['message' => 'Chỉnh sửa thành công']);
     }
 
     /**
