@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Reader\ReaderCreateRequest;
 use App\Models\Card;
 use App\Models\Reader;
 use Illuminate\Http\Request;
@@ -16,14 +17,21 @@ class ReaderController extends Controller
      */
 
     protected $reader, $card;
-    public function __construct(Reader $reader, Card $card){
+    public function __construct(Reader $reader, Card $card)
+    {
         $this->reader = $reader;
         $this->card = $card;
     }
     public function index()
     {
-        $cards = $this->card->latest('id')->paginate(5);
-        return View('admin.reader.index', compact('cards'));
+        // $cards = $this->card->latest('id')->paginate(5);
+        $cards = $this->card
+        ->join('readers', 'cards.reader_id', '=', 'readers.id')
+        ->select('cards.*', 'readers.name', 'readers.class', 'readers.major', 'readers.phone', 'readers.email', 'readers.address')
+        ->latest('cards.id')
+        ->paginate(5);
+
+        return view('admin.reader.index', compact('cards'));
     }
 
     /**
@@ -33,7 +41,7 @@ class ReaderController extends Controller
      */
     public function create()
     {
-        //
+        return View('admin.reader.create');
     }
 
     /**
@@ -42,9 +50,35 @@ class ReaderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReaderCreateRequest $request)
     {
-        //
+        $dataCreate = $request->all();
+
+        $reader = $this->reader->create([
+            'name' => $dataCreate['name'],
+            'email' => $dataCreate['email'],
+            'phone' => $dataCreate['phone'],
+            'address' => $dataCreate['address'],
+            'cccd' => $dataCreate['cccd'],
+            'gender' => $dataCreate['gender'],
+            'faculty' => $dataCreate['faculty'],
+            'major' => $dataCreate['major'],
+            'class' => $dataCreate['class'],
+            'note' => $dataCreate['note']
+        ]);
+        $card = $this->card->create([
+            'end_date' => $dataCreate['end_date'],
+            'status' => $dataCreate['status'] ?? true,
+            'reader_id' => $reader->id,
+        ]);
+        // // $card = new Card([
+        // //     'end_date' => $dataCreate['end_date'],
+        // //     'status' => $dataCreate['status'] ?? true,
+        // // ]);
+        // // $reader->card()->save($card);
+        // $card->reader()->attach($dataCreate['reader_id']);
+        // $card->reader()->save($reader);
+        return redirect()->route('readers.index')->with(['message' => 'Đăng ký thẻ thành công']);
     }
 
     /**

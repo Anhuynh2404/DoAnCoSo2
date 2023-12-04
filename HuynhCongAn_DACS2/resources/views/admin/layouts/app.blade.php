@@ -160,20 +160,20 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                            @guest
+                            {{-- @guest --}}
                                 <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="{{ asset('admin/assets/img/img-1.jpg') }}" alt=""
                                         class="avatar avatar-sm" alt="avatar">
                                 </button>
-                            @else
+                            {{-- @else --}}
                                 <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{-- Ảnh của người dùng --}}
-                                    <img src="{{ asset('/upload/' . Auth::user()->images->last()->url) }}"
-                                        class="avatar avatar-sm" alt="avatar">
+                                    {{-- <img src="{{ asset('/upload/' . Auth::user()->images->last()->url) }}"
+                                        class="avatar avatar-sm" alt="avatar"> --}}
                                 </button>
-                            @endguest
+                            {{-- @endguest --}}
                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                                 aria-labelledby="dropdownMenuButton">
                                 @guest

@@ -30,7 +30,7 @@ Auth::routes();
     })->name('dashboard');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    // Route::resource('roles',RoleController::class);
+    Route::resource('roles',RoleController::class);
         Route::prefix('roles')->controller(RoleController::class)->name('roles.')->group(function(){
             Route::get('/', 'index')->name('index')->middleware('role:super-admin');
             Route::post('/', 'store')->name('store')->middleware('role:super-admin');
@@ -41,17 +41,17 @@ Auth::routes();
             Route::get('/{role}/edit', 'edit')->name('edit')->middleware('role:super-admin');
 
         });
-    // Route::resource('users',UserController::class);
-    Route::prefix('users')->controller(UserController::class)->name('users.')->group(function(){
-        Route::get('/', 'index')->name('index')->middleware('role:super-admin');
-        Route::post('/', 'store')->name('store')->middleware('role:super-admin');
-        Route::get('/create', 'create')->name('create')->middleware('role:super-admin');
-        Route::get('/{user}', 'show')->name('show')->middleware('role:super-admin');
-        Route::put('/{user}', 'update')->name('update')->middleware('role:super-admin');
-        Route::get('/{user}', 'destroy')->name('destroy')->middleware('role:super-admin');
-        Route::get('/{user}/edit', 'edit')->name('edit')->middleware('role:super-admin');
+    Route::resource('users',UserController::class);
+    // Route::prefix('users')->controller(UserController::class)->name('users.')->group(function(){
+    //     Route::get('/', 'index')->name('index')->middleware('role:super-admin');
+    //     Route::post('/', 'store')->name('store')->middleware('role:super-admin');
+    //     Route::get('/create', 'create')->name('create')->middleware('role:super-admin');
+    //     Route::get('/{user}', 'show')->name('show')->middleware('role:super-admin');
+    //     Route::put('/{user}', 'update')->name('update')->middleware('role:super-admin');
+    //     Route::get('/{user}', 'destroy')->name('destroy')->middleware('role:super-admin');
+    //     Route::get('/{user}/edit', 'edit')->name('edit')->middleware('role:super-admin');
 
-    });
+    // });
     // Route::resource('category',CategoryController::class);
     Route::prefix('categories')->controller(CategoryController::class)->name('categories.')->group(function(){
         Route::get('/', 'index')->name('index')->middleware('permission:show-category');
@@ -96,16 +96,16 @@ Auth::routes();
         Route::get('/{book}/edit', 'edit')->name('edit')->middleware('permission:update-book');
 
     });
-    // Route::resource('reader',ReaderController::class);
-    Route::prefix('readers')->controller(ReaderController::class)->name('readers.')->group(function(){
-        Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store');
-        Route::get('/create', 'create')->name('create');
-        Route::get('/{reader}', 'show')->name('show');
-        Route::get('/{reader}', 'update')->name('update');
-        Route::get('/{reader}', 'destroy')->name('destroy');
-        Route::get('/{reader}/edit', 'edit')->name('edit');
+    Route::resource('readers',ReaderController::class);
+    // Route::prefix('readers')->controller(ReaderController::class)->name('readers.')->group(function(){
+    //     Route::get('/', 'index')->name('index');
+    //     Route::post('/', 'store')->name('store');
+    //     Route::get('/create', 'create')->name('create');
+    //     Route::get('/{reader}', 'show')->name('show');
+    //     Route::get('/{reader}', 'update')->name('update');
+    //     Route::get('/{reader}', 'destroy')->name('destroy');
+    //     Route::get('/{reader}/edit', 'edit')->name('edit');
 
-    });
+    // });
 // });
 

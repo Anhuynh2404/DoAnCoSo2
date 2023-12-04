@@ -12,7 +12,7 @@
                 </div>
                 <div class="ms-auto d-flex">
                     <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-                    <a href="{{ route('user.create') }}" type="button"
+                    <a href="{{ route('readers.create') }}" type="button"
                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
                         <span class="btn-inner--icon">
                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -29,99 +29,141 @@
             </div>
         </div>
         <div class="card-body px-0 py-0">
-            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('readers.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group px-4 d-flex row">
-
-                    <div class="d-flex w-100 mt-3 px-4">
-                        <div class="d-flex px-4 mt-3 w-20">
-                            <div class="btn p-0 rounded-circle">
-                                    <label class="form-label  m-0 ">
-                                        <img class="rounded-circle"  id="selectedImage" alt="example placeholder" style="width:150px; height:150px"
-                                            src="{{ asset('admin/img/uploadUser.png') }}" />
-                                    </label>
-                                    <input type="file" class="form-control d-none" id="customFile1"
-                                    onchange="displaySelectedImage(event, 'selectedImage')" name="image" accept="image/*" />
-                            </div>
+                <div class="container px-5 my-5">
+                    <div class="form-floating mb-3 w-100">
+                        <input type="hidden" name="reader_id" value="   ">
+                        <input class="form-control" id="ten" name="name" type="text" placeholder="Họ và tên"
+                            data-sb-validations="required" value="{{ old('name') }}" />
+                        <label for="ten">Họ và tên</label>
+                        <div class="invalid-feedback" data-sb-feedback="ten:required">Họ và tên is required.</div>
+                        @error('name')
+                            <p class="text-sm text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class ="d-flex w-100">
+                        <div class="form-floating mb-3 w-50">
+                            <input class="form-control" id="khoa" name="faculty" type="text" placeholder="Khoa"
+                                data-sb-validations="required" value="{{ old('faculty') }}" />
+                            <label for="khoa">Khoa</label>
+                            <div class="invalid-feedback" data-sb-feedback="khoa:required">Khoa is required.</div>
+                            @error('faculty')
+                                <p class="text-sm text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
-
-                        <div class="form-group w-80 mt-5">
-                            <label for="example-text-input" class="form-control-label">Tên</label>
-                            <input class="form-control" value="{{ old('name') }}" type="text" id="example-text-input"
-                                name="name">
-                            @error('name')
+                        <div class="form-floating mb-3 w-50 px-2">
+                            <input class="form-control px-3" id="chuyenNghanh" name="major" type="text"
+                                placeholder="Chuyên nghành" data-sb-validations="required" value="{{ old('major') }}" />
+                            <label for="chuyenNghanh" class ="px-4">Chuyên nghành</label>
+                            <div class="invalid-feedback" data-sb-feedback="chuyenNghanh:required">Chuyên nghành is
+                                required.</div>
+                            @error('major')
                                 <p class="text-sm text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group px-4">
-                        <label for="exampleFormControlSelect1">Giới tính</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="gender">
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
-                        </select>
+                    <div class ="d-flex w-100">
+                        <div class="form-floating mb-3 w-50">
+                            <input class="form-control" id="lớp" type="text" name="class" placeholder="Lớp"
+                                data-sb-validations="required" value="{{ old('class') }}" />
+                            <label for="lớp">Lớp</label>
+                            <div class="invalid-feedback" data-sb-feedback="lớp:required">Lớp is required.</div>
+                            @error('class')
+                                <p class="text-sm text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-3 w-50 px-2">
+                            <input class="form-control" id="phone" type="text" name="phone"
+                                placeholder="Số điện thoại" data-sb-validations="required" value="{{ old('phone') }}" />
+                            <label for="phone" class ="px-4">Số điện thoại</label>
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">Số điện thoại is required.</div>
+                            @error('phone')
+                                <p class="text-sm text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="form-group px-4">
-                        <label for="example-email-input" class="form-control-label">Email</label>
-                        <input class="form-control" value="{{ old('email') }}" type="email" value=""
-                            id="example-email-input" name="email">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="email" type="email" name="email" placeholder="Email"
+                            data-sb-validations="required,email" value="{{ old('email') }}" />
+                        <label for="email">Email</label>
+                        <div class="invalid-feedback" data-sb-feedback="email:required">Email is required.</div>
+                        <div class="invalid-feedback" data-sb-feedback="email:email">Email Email is not valid.</div>
                         @error('email')
                             <p class="text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group px-4">
-                        <label for="example-tel-input" class="form-control-label">Phone</label>
-                        <input class="form-control" type="tel" value="{{ old('phone') }}" id="example-tel-input"
-                            name="phone">
-                        @error('phone')
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="sốCmnnCccd" type="text" name="cccd"
+                            placeholder="Số CMNN/CCCD" data-sb-validations="required" value="{{ old('cccd') }}" />
+                        <label for="sốCmnnCccd">Số CMNN/CCCD</label>
+                        <div class="invalid-feedback" data-sb-feedback="sốCmnnCccd:required">Số CMNN/CCCD is required.
+                        </div>
+                        @error('cccd')
                             <p class="text-sm text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group px-4">
-                        <label for="example-password-input" class="form-control-label">Password</label>
-                        <input class="form-control" type="password" id="example-password-input" name="password">
-                        @error('password')
-                            <p class="text-sm text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group px-4">
-                        <label for="example-date-input" class="form-control-label">Ngày sinh</label>
-                        <input class="form-control" type="date" value="{{ old('birthday') }}" id="example-date-input"
-                            name="birthday">
-                    </div>
-                    <div class="form-group px-4">
-                        <label for="exampleFormControlTextarea1">Địa chỉ</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="address">{{ old('address') }}</textarea>
-                        @error('address')
-                            <p class="text-sm text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group px-4">
-                        <label>Chức năng</label>
-                        <div class ="row">
-                            @foreach ($roles as $groupName => $role)
-                                <div class ="col-4  px-5">
-                                    <h4>{{ $groupName }}</h4>
-                                    <div>
-                                        @foreach ($role as $item)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    value="{{ $item->id }}" id="fcustomCheck1" name ="role_ids[]">
-                                                <label class="custom-control-label"
-                                                    for="fcustomCheck1">{{ $item->display_name }}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
+                    <div class ="d-flex w-100">
+                        <div class="form-floating mb-3 w-80">
+                            <input class="form-control" id="dịaChỉ" type="text" name="address"
+                                placeholder="Địa chỉ" data-sb-validations="required" value="{{ old('address') }}" />
+                            <label for="dịaChỉ">Địa chỉ</label>
+                            <div class="invalid-feedback" data-sb-feedback="dịaChỉ:required">Địa chỉ is required.</div>
+                            @error('address')
+                                <p class="text-sm text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-3 w-20 px-2">
+                            <select class="form-select" id="giớiTinh" name="gender" aria-label="Giới tính">
+                                <option value="Nam" {{ old('gender') == 'Nam' ? 'selected' : '' }}>Nam</option>
+                                <option value="Nữ" {{ old('gender') == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                                <option value="Khác" {{ old('gender') == 'Khác' ? 'selected' : '' }}>Khác</option>
+                            </select>
+                            <label for="giớiTinh">Giới tính</label>
                         </div>
                     </div>
-                    <div class="modal-footer px-4 mt-4 ">
-                        <button type="submit" class="btn btn-white " data-bs-dismiss="modal">Close</button>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="ngayHếtHạn" type="date" name="end_date"
+                            placeholder="Ngày hết hạn" data-sb-validations="required"  value="{{ old('end_date') }}" />
+                        <label for="ngayHếtHạn">Ngày hết hạn</label>
+                        <div class="invalid-feedback" data-sb-feedback="ngayHếtHạn:required">Ngày hết hạn is required.
+                        </div>
+                        @error('end_date')
+                            <p class="text-sm text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" name="note" id="ghiChu" type="text" placeholder="Ghi chú·"
+                            style="height: 10rem;" data-sb-validations="required" value="{{ old('note')}}"></textarea>
+                        <label for="ghiChu">Ghi chú·</label>
+                        <div class="invalid-feedback" data-sb-feedback="ghiChu:required">Ghi chú· is required.</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="trạngThai" name="status" aria-label="Trạng thái">
+                            <option value="1">Kích hoạt</option>
+                            <option value="0">Khóa</option>
+                        </select>
+                        <label for="trạngThai">Trạng thái</label>
+                    </div>
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                            <p>To activate this form, sign up at</p>
+                            <a
+                                href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                        </div>
+                    </div>
+                    <div class="d-none" id="submitErrorMessage">
+                        <div class="text-center text-danger mb-3">Error sending message!</div>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg disabled" type="submit" name="submit">Submit</button>
                         <button type="submit" class="btn btn-dark">Send message</button>
                     </div>
                 </div>
+                <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
             </form>
+
         </div>
 
         <script>
@@ -154,27 +196,27 @@
                 }
             }
         </script>
-       <script>
-        let clickHandled = false;
-        document.getElementById('selectedImage').addEventListener('click', function () {
-            if (!clickHandled) {
-                document.getElementById('customFile1').click();
-                clickHandled = true;
-            } else {
-                clickHandled = false;
+        <script>
+            let clickHandled = false;
+            document.getElementById('selectedImage').addEventListener('click', function() {
+                if (!clickHandled) {
+                    document.getElementById('customFile1').click();
+                    clickHandled = true;
+                } else {
+                    clickHandled = false;
+                }
+            });
+
+            function displaySelectedImage(event, imageId) {
+                const input = event.target;
+                const reader = new FileReader();
+
+                reader.onload = function() {
+                    const image = document.getElementById(imageId);
+                    image.src = reader.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
             }
-        });
-
-        function displaySelectedImage(event, imageId) {
-            const input = event.target;
-            const reader = new FileReader();
-
-            reader.onload = function () {
-                const image = document.getElementById(imageId);
-                image.src = reader.result;
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    </script>
+        </script>
     @endsection

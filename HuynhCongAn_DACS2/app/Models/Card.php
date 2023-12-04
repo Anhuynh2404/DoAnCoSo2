@@ -10,14 +10,15 @@ class Card extends Model
     use HasFactory;
 
     protected $fillable = [
-        'start_date',
+        'status',
         'end_date',
-        'note',
+        'reader_id',
     ];
 
     // Card.php
+    // Card.php
     public function reader()
     {
-        return $this->belongsTo(Reader::class);
+        return $this->hasOne(Reader::class, 'reader_id');
     }
 }

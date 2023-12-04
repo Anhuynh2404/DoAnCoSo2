@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Reader;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,16 @@ class ReaderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'cccd' => $this->faker->numberBetween(100000000000, 999999999999),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'faculty' => $this->faker->word,
+            'major' => $this->faker->word,
+            'class' => $this->faker->word,
+            'note' => $this->faker->text,
         ];
     }
 }

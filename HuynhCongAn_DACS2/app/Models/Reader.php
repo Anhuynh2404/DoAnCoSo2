@@ -14,17 +14,16 @@ class Reader extends Model
         'email',
         'phone',
         'address',
+        'cccd',
         'gender',
         'faculty',
         'major',
         'class',
-        'class_of',
         'note',
     ];
-    // Card.php
-public function reader()
-{
-    return $this->belongsTo(Reader::class);
-}
-
+    // Reader.php
+    public function card()
+    {
+        return $this->belongsTo(Card::class, 'reader_id');
+    }
 }

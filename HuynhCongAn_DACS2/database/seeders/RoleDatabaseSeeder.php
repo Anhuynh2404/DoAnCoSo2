@@ -79,13 +79,13 @@ class RoleDatabaseSeeder extends Seeder
 
         // $admin = User::where('anhuynhadmin@gmail.com')->first();
 
-        
+
             // $admin = User::factory()->create([
             //     'email' => 'anhuynhadmin@gmail.com',
-            //     'password' => '1234432',
+            //     'password' => '  ',
             // ]);
             // $admin->assignRole('super-admin');
-        
+
 
     }
 }
