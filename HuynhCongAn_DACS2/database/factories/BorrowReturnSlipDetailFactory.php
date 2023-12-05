@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BorrowReturn_Slip_Detail>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BorrowReturnSlipDetail>
  */
 class BorrowReturnSlipDetailFactory extends Factory
 {

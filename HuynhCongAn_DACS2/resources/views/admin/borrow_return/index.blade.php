@@ -7,11 +7,11 @@
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center mb-3">
                 <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">Danh sách độc giả</h6>
+                    <h6 class="font-weight-semibold text-lg mb-0">Danh sách phiếu mượn</h6>
                     <p class="text-sm mb-sm-0">These are details about the last transactions</p>
                 </div>
                 <div class="ms-auto d-flex">
-                    <a href="{{ route('readers.create') }} " type="button"
+                    <a href="{{ route('slips.create') }} " type="button"
                         class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
                         <span class="btn-inner--icon">
                             <span class="btn-inner--icon">
@@ -23,7 +23,7 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="btn-inner--text">Thêm độc giả</span>
+                        <span class="btn-inner--text">Thêm phiếu mượn</span>
                     </a>
                 </div>
 
@@ -35,71 +35,71 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="text-secondary text-xs font-weight-semibold opacity-7">#</th>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tên</th>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Số điện thoại</th>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Email</th>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Lớp</th>
-                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Địa chỉ</th>
+                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Ngày lập</th>
+                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tên độc giả</th>
+                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Điện thoại</th>
+                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Người lập</th>
+                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Số lượng</th>
                             <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Ngày hết hạn</th>
                             <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Trạng thái</th>
                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cards as $card)
+                        @foreach ($slips as $slip)
                             <tr>
                                 <td>
                                     <div class="d-flex px-2">
                                         <div class="my-auto">
-                                            <h6 class="mb-0 text-sm">{{ $card->id }}</h6>
+                                            <h6 class="mb-0 text-sm">{{ $slip->id }}</h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ $card->name }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ $slip->borrowed_date }}</p>
                                 </td>
                                 <td>
-                                    <span class="text-sm font-weight-normal">{{ $card->phone }}</span>
+                                    <span class="text-sm font-weight-normal">{{ $slip->card->reader->name }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-sm font-weight-normal">{{ $card->email }}</span>
+                                    <span class="text-sm font-weight-normal">{{ $slip->user->phone }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-sm font-weight-normal">{{ $card->class }}</span>
+                                    <span class="text-sm font-weight-normal">{{ $slip->user->name }}</span>
                                 </td>
                                 <td>
-                                    <p class="text-secondary text-sm mb-0">{{ $card->address }}</p>
+                                    <span class="text-sm font-weight-normal">{{ $slip->details->count() }}</span>
                                 </td>
                                 <td>
-                                    @if ($card->end_date < now())
-                                        <p class="text-danger text-sm mb-0">Quá hạn: {{ $card->end_date }}</p>
+                                    @if ($slip->returned_date < now())
+                                        <p class="text-danger text-sm mb-0">Quá hạn: {{ $slip->returned_date }}</p>
                                     @else
-                                        <p class="text-secondary text-sm mb-0">{{ $card->end_date }}</p>
+                                        <p class="text-secondary text-sm mb-0">{{ $slip->returned_date }}</p>
                                     @endif
                                 </td>
                                 <td>
 
-                                    <form action="{{ route('readers.toggleStatus', $card->id) }}" method="post">
+                                    <form action="{{ route('slips.returnStatus', $slip->id) }}" method="post">
                                         @csrf
                                         @method('post')
                                         <button type="submit" class="border border-0 bg-transparent p-0 cursor-pointer">
-                                            @if ($card->status == 1)
+                                            @if ($slip->status == 1)
+                                            <span class="badge badge-sm border border-danger text-danger bg-danger">
+                                                <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" class="me-1">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg> Chưa trả
+                                            </span>
+                                            @else
                                                 <span class="badge badge-sm border border-success text-success bg-success">
                                                     <svg width="9" height="9" viewBox="0 0 10 9" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
                                                         class="me-1">
                                                         <path d="M1 4.42857L3.28571 6.71429L9 1" stroke-width="2"
                                                             stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    </svg> Kích hoạt
-                                                </span>
-                                            @else
-                                                <span class="badge badge-sm border border-danger text-danger bg-danger">
-                                                    <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                        stroke="currentColor" class="me-1">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M6 18L18 6M6 6l12 12"></path>
-                                                    </svg> Khóa
+                                                    </svg> Đã trả
                                                 </span>
                                             @endif
                                         </button>
@@ -107,7 +107,7 @@
                                 </td>
                                 <td class=" d-flex">
                                     <div class="align-items-center d-flex">
-                                        <a href="{{ route('readers.edit', $card->reader_id) }}"
+                                        <a href=""
                                             class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip"
                                             data-bs-title="Edit user">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
@@ -125,7 +125,7 @@
 
                                         </a>
                                     </div>
-                                    <form action="{{ route('readers.extendCard', $card->reader_id) }}" method="POST">
+                                    <form action="" method="POST">
                                         @csrf
                                         <button class="border border-0 bg-transparent p-0 cursor-pointer" type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18"
@@ -142,7 +142,7 @@
                     </tbody>
                 </table>
                 <div class="" style="color: white">
-                    {{ $cards->links()  }}
+                    {{ $slips->links()  }}
                 </div>
             </div>
         </div>

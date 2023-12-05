@@ -161,7 +161,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " data-bs-toggle="collapse" href="#collapseExample2" role="button"
+                <a class="nav-link " {{ request()->routeIs('slips.*') ? 'active' : '' }} data-bs-toggle="collapse" href="#collapseExample2" role="button"
                     aria-expanded="false" aria-controls="collapseExample2">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
@@ -185,7 +185,7 @@
                 <div class="collapse" id="collapseExample2">
                     <ol class="navbar-nav">
                         <li class="nav-item border-start my-0 pt-2">
-                            <a class="nav-link position-relative ms-0 ps-2 py-2 " href="../pages/profile.html">
+                            <a class="nav-link position-relative ms-0 ps-2 py-2 " {{ request()->routeIs('slip.*') ? 'active' : '' }} href="{{ route('slips.index') }}">
                                 <span class="nav-link-text ms-1">Phiếu mượn</span>
                             </a>
                         </li>

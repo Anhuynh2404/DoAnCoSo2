@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Author;
+use App\Models\BorrowReturnSlip;
+use App\Models\BorrowReturnSlipDetail;
 use App\Models\Publisher;
 use Illuminate\Database\Seeder;
 
@@ -64,6 +66,29 @@ class DatabaseSeeder extends Seeder
         ];
         foreach($publishers as $publisher){
             Publisher::updateOrCreate($publisher);
+        }
+
+        $slips =[
+            ['status'=>'1','borrowed_date' => '2023-12-06','returned_date' => '2023-12-29','card_id' => '1','user_id' => '1'],
+            ['status'=>'1','borrowed_date' => '2023-12-11','returned_date' => '2023-12-29','card_id' => '1','user_id' => '2'],
+            ['status'=>'1','borrowed_date' => '2023-12-11','returned_date' => '2023-12-29','card_id' => '1','user_id' => '3'],
+            ['status'=>'1','borrowed_date' => '2023-12-12','returned_date' => '2023-12-29','card_id' => '1','user_id' => '4'],
+            ['status'=>'1','borrowed_date' => '2023-12-12','returned_date' => '2023-12-29','card_id' => '1','user_id' => '5'],
+        ];
+        foreach($slips as $slip){
+            BorrowReturnSlip::updateOrCreate($slip);
+        }
+
+        $slipDetails =[
+            ['book_id' => '1','borrow_return_slip_id' => '7'],
+            ['book_id' => '2','borrow_return_slip_id' => '2'],
+            ['book_id' => '3','borrow_return_slip_id' => '2'],
+            ['book_id' => '5','borrow_return_slip_id' => '3'],
+            ['book_id' => '4','borrow_return_slip_id' => '4'],
+            ['book_id' => '5','borrow_return_slip_id' => '5'],
+        ];
+        foreach($slipDetails as $slipDetail){
+            BorrowReturnSlipDetail::updateOrCreate($slipDetail);
         }
     }
 }

@@ -18,6 +18,8 @@ class CardFactory extends Factory
     {
         return [
             'status' => $this->faker->boolean,
+            'end_date' => $this->faker->date,
+           'reader_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

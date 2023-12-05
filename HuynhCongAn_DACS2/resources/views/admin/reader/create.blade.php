@@ -1,13 +1,11 @@
 @extends('admin.layouts.app')
-@section('title', 'Create User')
+@section('title', 'Tạo mới độc giả')
 @section('content')
-
-    <h1>Tạo mới người dùng</h1>
     <div class="card border shadow-xs mb-4">
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
                 <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">Members list</h6>
+                    <h6 class="font-weight-semibold text-lg mb-0">Tạo mới độc giả</h6>
                     <p class="text-sm">See information about all members</p>
                 </div>
                 <div class="ms-auto d-flex">
@@ -31,7 +29,7 @@
         <div class="card-body px-0 py-0">
             <form action="{{ route('readers.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="container px-5 my-5">
+                <div class="container-fluid px-5 my-5">
                     <div class="form-floating mb-3 w-100">
                         <input type="hidden" name="reader_id" value="   ">
                         <input class="form-control" id="ten" name="name" type="text" placeholder="Họ và tên"
@@ -43,7 +41,7 @@
                         @enderror
                     </div>
                     <div class ="d-flex w-100">
-                        <div class="form-floating mb-3 w-50">
+                        <div class="form-floating mb-3 w-50 me-2">
                             <input class="form-control" id="khoa" name="faculty" type="text" placeholder="Khoa"
                                 data-sb-validations="required" value="{{ old('faculty') }}" />
                             <label for="khoa">Khoa</label>
@@ -52,7 +50,7 @@
                                 <p class="text-sm text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="form-floating mb-3 w-50 px-2">
+                        <div class="form-floating mb-3 w-50">
                             <input class="form-control px-3" id="chuyenNghanh" name="major" type="text"
                                 placeholder="Chuyên nghành" data-sb-validations="required" value="{{ old('major') }}" />
                             <label for="chuyenNghanh" class ="px-4">Chuyên nghành</label>
@@ -64,7 +62,7 @@
                         </div>
                     </div>
                     <div class ="d-flex w-100">
-                        <div class="form-floating mb-3 w-50">
+                        <div class="form-floating mb-3 w-50 me-2">
                             <input class="form-control" id="lớp" type="text" name="class" placeholder="Lớp"
                                 data-sb-validations="required" value="{{ old('class') }}" />
                             <label for="lớp">Lớp</label>
@@ -73,7 +71,7 @@
                                 <p class="text-sm text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="form-floating mb-3 w-50 px-2">
+                        <div class="form-floating mb-3 w-50">
                             <input class="form-control" id="phone" type="text" name="phone"
                                 placeholder="Số điện thoại" data-sb-validations="required" value="{{ old('phone') }}" />
                             <label for="phone" class ="px-4">Số điện thoại</label>
@@ -104,7 +102,7 @@
                         @enderror
                     </div>
                     <div class ="d-flex w-100">
-                        <div class="form-floating mb-3 w-80">
+                        <div class="form-floating mb-3 w-80 me-2">
                             <input class="form-control" id="dịaChỉ" type="text" name="address"
                                 placeholder="Địa chỉ" data-sb-validations="required" value="{{ old('address') }}" />
                             <label for="dịaChỉ">Địa chỉ</label>
@@ -113,7 +111,7 @@
                                 <p class="text-sm text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="form-floating mb-3 w-20 px-2">
+                        <div class="form-floating mb-3 w-20">
                             <select class="form-select" id="giớiTinh" name="gender" aria-label="Giới tính">
                                 <option value="Nam" {{ old('gender') == 'Nam' ? 'selected' : '' }}>Nam</option>
                                 <option value="Nữ" {{ old('gender') == 'Nữ' ? 'selected' : '' }}>Nữ</option>
@@ -122,7 +120,7 @@
                             <label for="giớiTinh">Giới tính</label>
                         </div>
                     </div>
-                    <div class="form-floating mb-3">
+                    {{-- <div class="form-floating mb-3">
                         <input class="form-control" id="ngayHếtHạn" type="date" name="end_date"
                             placeholder="Ngày hết hạn" data-sb-validations="required"  value="{{ old('end_date') }}" />
                         <label for="ngayHếtHạn">Ngày hết hạn</label>
@@ -131,10 +129,10 @@
                         @error('end_date')
                             <p class="text-sm text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" name="note" id="ghiChu" type="text" placeholder="Ghi chú·"
-                            style="height: 10rem;" data-sb-validations="required" value="{{ old('note')}}"></textarea>
+                        <textarea class="form-control" name="note" id="ghiChu" type="text" placeholder="Ghi chú"
+                            style="height: 10rem;" data-sb-validations="required" value="{{ old('note') }}"></textarea>
                         <label for="ghiChu">Ghi chú·</label>
                         <div class="invalid-feedback" data-sb-feedback="ghiChu:required">Ghi chú· is required.</div>
                     </div>
@@ -156,67 +154,14 @@
                     <div class="d-none" id="submitErrorMessage">
                         <div class="text-center text-danger mb-3">Error sending message!</div>
                     </div>
-                    <div class="d-grid">
-                        <button class="btn btn-primary btn-lg disabled" type="submit" name="submit">Submit</button>
-                        <button type="submit" class="btn btn-dark">Send message</button>
+                    <div class="mt-4 d-flex justify-content-end">
+                        <a class="btn btn-white btn-lg me-2" type="submit" href="{{ route('readers.index') }}">Hủy</a>
+                        <button type="submit" class="btn btn-dark btn-lg">Xác nhận</button>
                     </div>
                 </div>
                 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
             </form>
 
         </div>
-
-        <script>
-            function displayImage() {
-                var input = document.getElementById('image');
-                var img = document.getElementById('show-image');
-
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        img.src = e.target.result;
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            function displaySelectedImage(event, elementId) {
-                const selectedImage = document.getElementById(elementId);
-                const fileInput = event.target;
-
-                if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        selectedImage.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            }
-        </script>
-        <script>
-            let clickHandled = false;
-            document.getElementById('selectedImage').addEventListener('click', function() {
-                if (!clickHandled) {
-                    document.getElementById('customFile1').click();
-                    clickHandled = true;
-                } else {
-                    clickHandled = false;
-                }
-            });
-
-            function displaySelectedImage(event, imageId) {
-                const input = event.target;
-                const reader = new FileReader();
-
-                reader.onload = function() {
-                    const image = document.getElementById(imageId);
-                    image.src = reader.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        </script>
+    </div>
     @endsection

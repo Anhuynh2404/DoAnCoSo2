@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('faculty');
             $table->string('major');
             $table->string('class');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

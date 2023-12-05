@@ -22,8 +22,8 @@ class Reader extends Model
         'note',
     ];
     // Reader.php
-    public function card()
-    {
-        return $this->belongsTo(Card::class, 'reader_id');
-    }
+    // public function card()
+    // {
+    //     return $this->belongsTo(Card::class, 'reader_id');
+    // }
 }

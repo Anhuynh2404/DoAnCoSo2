@@ -30,6 +30,8 @@ class CreateUserRequest extends FormRequest
             'phone' => 'required|unique:users,phone',
             'image' => 'required|image|mimes:png,jpg,jpeg,gif,webp,',
             'gender' => 'required',
+            'birthday' =>'nullable|date',
+            'address' =>'nullable',
         ];
     }
 }

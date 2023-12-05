@@ -19,6 +19,7 @@ class Card extends Model
     // Card.php
     public function reader()
     {
-        return $this->hasOne(Reader::class, 'reader_id');
+        // return $this->hasOne(Reader::class, 'reader_id');
+        return $this->belongsTo(Reader::class, 'reader_id');
     }
 }

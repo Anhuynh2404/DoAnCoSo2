@@ -34,7 +34,7 @@ class ReaderCreateRequest extends FormRequest
             'major' => 'required',
             'class' => 'required',
             'note' => 'nullable',
-            'end_date' => 'required|date',
+            'end_date' => 'date',
             'status' => 'boolean',
         ];
     }

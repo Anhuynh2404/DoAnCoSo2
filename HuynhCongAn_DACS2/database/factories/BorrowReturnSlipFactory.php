@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BorrowReturn_Slip>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BorrowReturnSlip>
  */
 class BorrowReturnSlipFactory extends Factory
 {
@@ -17,7 +17,6 @@ class BorrowReturnSlipFactory extends Factory
     public function definition()
     {
         return [
-            //
         ];
     }
 }

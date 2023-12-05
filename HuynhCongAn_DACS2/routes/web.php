@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\BorrowReturnController;
 use App\Http\Controllers\Admin\ReaderController;
+use App\Models\BorrowReturnSlip;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,16 +98,31 @@ Auth::routes();
         Route::get('/{book}/edit', 'edit')->name('edit')->middleware('permission:update-book');
 
     });
-    Route::resource('readers',ReaderController::class);
-    // Route::prefix('readers')->controller(ReaderController::class)->name('readers.')->group(function(){
-    //     Route::get('/', 'index')->name('index');
-    //     Route::post('/', 'store')->name('store');
-    //     Route::get('/create', 'create')->name('create');
-    //     Route::get('/{reader}', 'show')->name('show');
-    //     Route::get('/{reader}', 'update')->name('update');
-    //     Route::get('/{reader}', 'destroy')->name('destroy');
-    //     Route::get('/{reader}/edit', 'edit')->name('edit');
+    // Route::resource('readers',ReaderController::class);
+    Route::prefix('readers')->controller(ReaderController::class)->name('readers.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{reader}', 'show')->name('show');
+        Route::get('/{reader}', 'update')->name('update');
+        Route::get('/{reader}', 'destroy')->name('destroy');
+        Route::get('/{reader}/edit', 'edit')->name('edit');
+        Route::post('/extendCard/{reader}', 'extendCard')->name('extendCard');
+        Route::post('/{id}/toggleStatus', 'toggleStatus')->name('toggleStatus');
+    });
 
-    // });
+    Route::prefix('slips')->controller(BorrowReturnController::class)->name('slips.')->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{slip}', 'show')->name('show');
+        Route::get('/{slip}', 'update')->name('update');
+        Route::get('/{slip}', 'destroy')->name('destroy');
+        Route::get('/{slip}/edit', 'edit')->name('edit');
+        Route::post('/extendCard/{slip}', 'extendCard')->name('extendCard');
+        Route::post('/{id}/returnStatus', 'returnStatus')->name('returnStatus');
+
+
+    });
 // });
 

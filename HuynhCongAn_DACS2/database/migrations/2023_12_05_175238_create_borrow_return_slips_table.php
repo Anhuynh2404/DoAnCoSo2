@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Book;
-use App\Models\BorrowReturn_Slip;
+use App\Models\Card;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +15,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('borrow_return__slip__details', function (Blueprint $table) {
+        Schema::create('borrow_return_slips', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['chưa trả', 'đã trả']);
+            $table->boolean('status')->default(true);
+            $table->date('borrowed_date');
             $table->date('returned_date');
-            $table->text('note');
-            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(BorrowReturn_Slip::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Card::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrow_return__slip__details');
+        Schema::dropIfExists('borrow_return_slips');
     }
 };

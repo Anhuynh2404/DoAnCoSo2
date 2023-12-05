@@ -25,7 +25,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Author::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
-
             $table->timestamps();
         });
     }
