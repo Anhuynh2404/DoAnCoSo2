@@ -1,8 +1,6 @@
 @extends('admin.layouts.app')
 @section('title','Edit Category')
 @section('content')
-
-<h1>Chỉnh sửa thể loại</h1>
 <div class="card border shadow-xs mb-4">
     <div class="card-header border-bottom pb-0">
       <div class="d-sm-flex align-items-center">
@@ -45,7 +43,7 @@
                         <a href="{{route('categories.index')}}" type="button" class="btn btn-white " >Hủy</a>
                     </div>
                     <div class="">
-                        <button type="submit" class="btn btn-dark">Chỉnh sửa</button>
+                        <button type="submit" class="btn btn-success">Xác nhận</button>
                     </div>
                   </div>
             </form>

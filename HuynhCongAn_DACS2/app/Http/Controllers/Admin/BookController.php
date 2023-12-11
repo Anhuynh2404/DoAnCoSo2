@@ -31,7 +31,10 @@ class BookController extends Controller
     public function index()
     {
         $books = $this->book->latest('id')->paginate(5);
-        return View('admin.book.index', compact('books'));
+        return View('admin.book.index', compact('books'))->with([
+            'pageTitle' => 'Ấn phẩm',
+            'pageSubtitle' => 'Danh sách Ấn phẩm',
+        ]);
     }
 
     /**
@@ -44,7 +47,10 @@ class BookController extends Controller
         $categories = $this->category->get(['id', 'name']);
         $authors = $this->author->get(['id', 'name']);
         $publishers = $this->publisher->get(['id', 'name']);
-        return View('admin.book.create', compact('categories', 'authors', 'publishers'));
+        return View('admin.book.create', compact('categories', 'authors', 'publishers'))->with([
+            'pageTitle' => 'Ấn phẩm',
+            'pageSubtitle' => 'Thêm Ấn phẩm',
+        ]);
     }
 
     /**
@@ -100,7 +106,10 @@ class BookController extends Controller
         $categories = $this->category->get(['id', 'name']);
         $authors = $this->author->get(['id', 'name']);
         $publishers = $this->publisher->get(['id', 'name']);
-        return View('admin.book.edit', compact('book', 'categories', 'authors', 'publishers'));
+        return View('admin.book.edit', compact('book', 'categories', 'authors', 'publishers'))->with([
+            'pageTitle' => 'Ấn phẩm',
+            'pageSubtitle' => 'Sửa Ấn phẩm',
+        ]);
     }
 
     /**
@@ -143,6 +152,12 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = $this->book->findOrFail($id)->load('categories', 'authors', 'publishers');
+
+        $imageName = $book->images->count()>0 ? $book->images->first()->url : '';
+        $this->book->deleteImage($imageName);
+        $book->images()->delete();
+        $book->delete();
+        return to_route('books.index')->with(['message'=> 'Xóa thành công']);
     }
 }

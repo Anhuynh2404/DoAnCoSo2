@@ -10,101 +10,128 @@
                     <h6 class="font-weight-semibold text-lg mb-0">Members list</h6>
                     <p class="text-sm">See information about all members</p>
                 </div>
-                <div class="ms-auto d-flex">
-                    <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
-                    <a href="{{ route('books.create') }}" type="button"
-                        class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
-                        <span class="btn-inner--icon">
-                            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="currentColor" class="d-block me-2">
-                                <path
-                                    d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="btn-inner--text" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">Add
-                            member</span>
-                    </a>
-                </div>
             </div>
         </div>
         <div class="card-body px-0 py-0">
             <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex">
-                    <div class="d-flex px-4 mt-3">
-                        <div class="btn p-0">
-                            <label class="form-label  m-0 ">
-                                <img id="selectedImage" alt="example placeholder" style="width: 100px;"
-                                    src="{{ asset('admin/img/upload.png') }}" />
-                            </label>
-                            <input type="file" class="form-control d-none" id="customFile1"
-                                onchange="displaySelectedImage(event, 'selectedImage')" name="image" accept="image/*" />
+                    <div class="w-50">
+                        <div class="d-flex w-100">
+                            <div class="d-flex">
+                                <div class="d-flex px-4 mt-3">
+                                    <div class="btn p-0">
+                                        <label class="form-label  m-0 ">
+                                            <img id="selectedImage" alt="example placeholder" style="width: 100px;"
+                                                src="{{ asset('admin/img/upload.png') }}" />
+                                        </label>
+                                        <input type="file" class="form-control d-none" id="customFile1"
+                                            onchange="displaySelectedImage(event, 'selectedImage')" name="image"
+                                            accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group w-60 mt-5">
+                                <label for="example-text-input" class="form-control-label">Tên</label>
+                                <input class="form-control" value="{{ old('name') }}" type="text"
+                                    id="example-text-input" name="name">
+                                @error('name')
+                                    <p class="text-sm text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group px-4">
+                            <label for="example-text-input" class="form-control-label">Mô tả</label>
+                            <textarea name="description" id="description" class="form-control" cols="5" rows="8" style="width: 100%">{{ old('description') }} </textarea>
+
+                            @error('description')
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
-                </div>
+                    {{-- Bên phải --}}
+                    <div class="w-50">
+                        <div class="px-4 d-flex w-100">
+                            <div class="form-group w-80 me-2">
+                                <label for="exampleFormControlSelect1">Thể loại</label>
+                                <select class="form-control mySelect" name="category_ids[]" multiple="multiple">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ in_array($category->id, old('category_ids', [])) ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="w-20 " style="margin-top: 33.5px">
+                                <a href="{{ route('categories.create') }}" type="button"
+                                    class="btn btn-light btn-icon px-2 py-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14"
+                                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                        <path
+                                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            @error('category_ids')
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
+                        </div>
 
 
-                <div class="form-group px-4">
-                    <label for="example-text-input" class="form-control-label">Tên</label>
-                    <input class="form-control" value="{{ old('name') }}" type="text" id="example-text-input"
-                        name="name">
-                    @error('name')
-                        <p class="text-sm text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-group px-4">
-                    <label for="example-text-input" class="form-control-label">Mô tả</label>
-                    <textarea name="description" id="description" class="form-control" cols="5" rows="8" style="width: 100%">{{ old('description') }} </textarea>
+                        <div class="d-flex px-4 w-100">
+                            <div class="form-group w-80 me-2">
+                                <label for="exampleFormControlSelect1">Nhà xuất bản</label>
+                                <select class="form-control mySelect" name="publisher_ids[]" multiple="multiple">
+                                    @foreach ($publishers as $publisher)
+                                        <option value="{{ $publisher->id }}"
+                                            {{ in_array($publisher->id, old('publisher_ids', [])) ? 'selected' : '' }}>
+                                            {{ $publisher->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="w-20 " style="margin-top: 33.5px">
+                                <a href="{{ route('publishers.create') }}" type="button"
+                                    class="btn btn-light btn-icon px-2 py-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14"
+                                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                        <path
+                                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            @error('publisher_ids')
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    @error('description')
-                        <span class="text-danger"> {{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group px-4">
-                    <label for="exampleFormControlSelect1">Thể loại</label>
-                    <select class="form-control mySelect" name="category_ids[]" multiple="multiple">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ in_array($category->id, old('category_ids', [])) ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('category_ids')
-                        <span class="text-danger"> {{ $message }}</span>
-                    @enderror
-                </div>
-
-
-                <div class="form-group px-4">
-                    <label for="exampleFormControlSelect1">Nhà xuất bản</label>
-                    <select class="form-control mySelect" name="publisher_ids[]" multiple="multiple">
-                        @foreach ($publishers as $publisher)
-                            <option value="{{ $publisher->id }}"
-                                {{ in_array($publisher->id, old('publisher_ids', [])) ? 'selected' : '' }}>
-                                {{ $publisher->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('publisher_ids')
-                        <span class="text-danger"> {{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group px-4">
-                    <label for="exampleFormControlSelect1">Tác giả</label>
-                    <select class="form-control  mySelect" name="author_ids[]" multiple="multiple">
-                        @foreach ($authors as $author)
-                            <option value="{{ $author->id }}"
-                                {{ in_array($author->id, old('author_ids', [])) ? 'selected' : '' }}>
-                                {{ $author->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('author_ids')
-                        <span class="text-danger"> {{ $message }}</span>
-                    @enderror
+                        <div class="d-flex w-100 px-4">
+                            <div class="form-group w-80 me-2">
+                                <label for="exampleFormControlSelect1">Tác giả</label>
+                                <select class="form-control  mySelect" name="author_ids[]" multiple="multiple">
+                                    @foreach ($authors as $author)
+                                        <option value="{{ $author->id }}"
+                                            {{ in_array($author->id, old('author_ids', [])) ? 'selected' : '' }}>
+                                            {{ $author->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="w-20 " style="margin-top: 33.5px">
+                                <a href="{{ route('categories.create') }}" type="button"
+                                    class="btn btn-light btn-icon px-2 py-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14"
+                                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                        <path
+                                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                                    </svg>
+                                </a>
+                            </div>
+                            @error('author_ids')
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
 

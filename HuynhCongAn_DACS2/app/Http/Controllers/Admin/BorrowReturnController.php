@@ -31,11 +31,19 @@ class BorrowReturnController extends Controller
     }
     public function index()
     {
-        $slips = BorrowReturnSlip::with(['user', 'card', 'details.book'])
-        ->latest()
-        ->paginate(5);
+        $slips = BorrowReturnSlip::with(['user', 'card', 'details' => function ($query) {
+            $query->withCount('books');
+        }])
+            ->latest()
+            ->paginate(5);
 
-        return view('admin.borrow_return.index', compact('slips'));
+        // foreach ($slips->items() as $slip) {
+        //     dd($slip->toArray());
+        // }
+        return view('admin.borrow_return.index', compact('slips'))->with([
+            'pageTitle' => 'Mượn trả sách',
+            'pageSubtitle' => 'Phiếu mượn'
+        ]);
     }
 
     public function returnStatus($id)
@@ -56,7 +64,10 @@ class BorrowReturnController extends Controller
         $users = $this->user->all();
         $books = $this->book->all();
 
-        return view('admin.borrow_return.create', compact('cards','users','books'));
+        return view('admin.borrow_return.create', compact('cards', 'users', 'books'))->with([
+            'pageTitle' => 'Mượn sách',
+            'pageSubtitle' => 'Thêm phiếu mượn'
+        ]);
     }
 
     /**
@@ -68,20 +79,26 @@ class BorrowReturnController extends Controller
     public function store(BorrowReturnSlipCreateRequest $request)
     {
         $dataCreate = $request->all();
-
+        // $bookCount = count($dataCreate['book_ids']);
+        // if ($bookCount > 5) {
+        //     return redirect()->back()->withInput()->withErrors(['book_ids' => 'Số lượng sách mượn không được vượt quá 5.']);
+        // }
         $slip = $this->borrowReturn_Slip->create([
-            'user_id' => $dataCreate['user_id'],
+            'user_id' => auth()->user()->id,
             'card_id' => $dataCreate['card_id'],
-          'status' => $dataCreate['status'] ?? '1',
-          'borrowed_date' => $dataCreate['borrowed_date'],
-          'returned_date' => Carbon::now()->addMonth()->toDateString(),
+            // Thêm các trường khác như ngày mượn, ngày trả, ...
         ]);
 
         $slipDetail = $this->borrowReturn_Slip_Detail->create([
             'borrow_return_slip_id' => $slip->id,
-            'book_id' => $dataCreate['book_id'],
-            'note' => $dataCreate['note'] ,
+            'status' => $dataCreate['status'] ?? '0',
+            'borrowed_date' => now(),
+            'returned_date' => Carbon::now()->addDays(30),
+            'note' => $dataCreate['note'],
         ]);
+
+        $slipDetail->books()->attach($dataCreate['book_ids']);
+
 
         return redirect()->route('slips.index')->with(['message' => 'Tạo phiếu mượn thành công']);
     }
@@ -105,7 +122,10 @@ class BorrowReturnController extends Controller
      */
     public function edit($id)
     {
-        //
+        return View('', compact('id'))->with([
+            'pageTitle' => 'Mượn sách',
+            'pageSubtitle' => 'Sửa phiếu mượn'
+        ]);
     }
 
     /**
@@ -130,4 +150,44 @@ class BorrowReturnController extends Controller
     {
         //
     }
+
+    public function getBookCountAttribute()
+    {
+        return $this->book->count();
+    }
+
+    // Trong BorrowReturnController.php
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $slips = BorrowReturnSlip::with(['user', 'card', 'details' => function ($query) {
+            $query->withCount('books');
+        }])
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('card.reader', function ($subquery) use ($search) {
+                    $subquery->where('name', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('user', function ($subquery) use ($search) {
+                        $subquery->where('name', 'like', '%' . $search . '%');
+                    })
+                    ->orWhere('id', 'like', '%' . $search . '%');
+            })
+            ->latest();
+
+        // Check if the search input is empty
+        if (empty($search)) {
+            // Retrieve all records
+            $slips = $slips->paginate(5);
+        } else {
+            // Apply pagination for search results
+            $slips = $slips->paginate(5);
+        }
+
+        return view('admin.borrow_return.index', compact('slips'))->with([
+            'pageTitle' => 'Mượn trả sách',
+            'pageSubtitle' => 'Phiếu mượn'
+        ]);
+    }
+
 }

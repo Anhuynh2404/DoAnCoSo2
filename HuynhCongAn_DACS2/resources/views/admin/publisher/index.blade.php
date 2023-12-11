@@ -14,17 +14,31 @@
     }
 </style>
 @section('content')
-    <h2>Danh sách nhà xuất bản</h2>
     <div class="card border shadow-xs mb-4">
         <div class="card-header border-bottom pb-0">
             <div class="d-sm-flex align-items-center">
-                <div>
-                    <p class="text-sm">See information about all members</p>
+                <select class="form-select w-25 mb-3" aria-label="Default select example" >
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                <div class="ms-md-auto d-flex w-50 mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text text-body bg-white border-end-0 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
                 </div>
                 <div class="ms-auto d-flex">
                     <button type="button" class="btn btn-sm btn-white me-2"> View all </button>
                     <a href="{{ route('publishers.create') }}" type="button"
-                        class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
+                        class="btn btn-sm btn-success btn-icon d-flex align-items-center me-2">
                         <span class="btn-inner--icon">
                             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor" class="d-block me-2">
@@ -80,7 +94,7 @@
                                     <div class="d-flex mt-2 ">
                                         <div class=" px-2">
                                             <a href="{{ route('publishers.edit', $publisher->id) }}" type="button"
-                                                class="btn btn-dark btn-icon px-3">
+                                                class="btn btn-info btn-icon px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="2">
@@ -95,7 +109,7 @@
                                                 id="form-delete{{ $publisher->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-dark btn-icon px-3 btn-delete"
+                                                <button type="submit" class="btn btn-danger btn-icon px-3 btn-delete"
                                                     data-id="{{ $publisher->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"

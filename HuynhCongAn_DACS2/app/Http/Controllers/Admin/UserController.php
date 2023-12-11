@@ -30,7 +30,11 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user->latest('id')->paginate(5);
-        return View('admin.user.index', compact('users'));
+        $roles = $this->role->all()->groupBy('group');
+        return View('admin.user.index', compact('users'))->with([
+            'pageTitle' => 'Hệ thống',
+            'pageSubtitle' => 'Tài khoản',
+        ]);
     }
 
     /**
@@ -41,7 +45,10 @@ class UserController extends Controller
     public function create()
     {
         $roles = $this->role->all()->groupBy('group');
-        return View('admin.user.create', compact('roles'));
+        return View('admin.user.create', compact('roles'))->with([
+            'pageTitle' => 'Tài khoản',
+            'pageSubtitle' => 'Tạo tài khoản',
+        ]);
     }
 
     /**
@@ -83,7 +90,10 @@ class UserController extends Controller
     {
          $user = $this->user->findOrFail($id)->load('roles');
          $roles = $this->role->all()->groupBy('group');
-         return View('admin.user.edit', compact('user','roles'));
+         return View('admin.user.edit', compact('user','roles'))->with([
+            'pageTitle' => 'Tài khoản',
+            'pageSubtitle' => 'Sửa tài khoản',
+        ]);;
     }
 
     /**

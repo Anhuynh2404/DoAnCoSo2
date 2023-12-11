@@ -27,7 +27,10 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = $this->author->latest('id')->paginate(5);
-        return View('admin.author.index', compact('authors'));
+        return View('admin.author.index', compact('authors'))->with([
+            'pageTitle' => 'Danh mục',
+            'pageSubtitle' => 'Thể loại',
+        ]);
     }
 
     /**
@@ -37,7 +40,10 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return View('admin.author.create');
+        return View('admin.author.create')->with([
+            'pageTitle' => 'Tác giả',
+            'pageSubtitle' => 'Thêm tác giả',
+        ]);;
     }
 
     /**
@@ -73,7 +79,10 @@ class AuthorController extends Controller
     public function edit($id)
     {
         $author = $this->author->findOrFail($id);
-        return View('admin.author.edit', compact('author'));
+        return View('admin.author.edit', compact('author'))->with([
+            'pageTitle' => 'Tác giả',
+            'pageSubtitle' => 'Sửa tác giả',
+        ]);
     }
 
     /**

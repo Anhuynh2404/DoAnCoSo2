@@ -25,8 +25,6 @@ class BorrowReturnSlipCreateRequest extends FormRequest
     {
         return [
             'card_id' => 'required',
-            'user_id' => 'required',
-            'book_id' => 'required',
         ];
     }
 }

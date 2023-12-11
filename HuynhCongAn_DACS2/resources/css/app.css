@@ -2,3 +2,9 @@
 .custom-height {
     height: 10px;
 }
+
+/* Đổi màu cho trang active trong thanh phân trang */
+.pagination .page-item.active .page-link {
+    background-color: blue; /* Thay đổi màu ở đây */
+    color: #fff; /* Thay đổi màu chữ ở đây */
+}

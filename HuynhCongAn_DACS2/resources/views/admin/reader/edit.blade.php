@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="card-body px-0 py-0">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('readers.update', $card->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="container-fluid px-5 my-5">

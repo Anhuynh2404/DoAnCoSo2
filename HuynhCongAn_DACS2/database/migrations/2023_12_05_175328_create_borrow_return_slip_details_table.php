@@ -17,8 +17,10 @@ return new class extends Migration
     {
         Schema::create('borrow_return_slip_details', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status')->default(true);
+            $table->date('borrowed_date');
+            $table->date('returned_date');
             $table->text('note')->nullable();
-            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(BorrowReturnSlip::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

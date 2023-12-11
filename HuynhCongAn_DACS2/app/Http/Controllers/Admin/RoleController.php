@@ -19,7 +19,10 @@ class RoleController extends Controller
     public function index()
     {
         $roles= Role::latest('id')->paginate(10);
-        return View('admin.role.index', compact('roles'));
+        return View('admin.role.index', compact('roles'))->with([
+            'pageTitle' => 'Hệ thống',
+            'pageSubtitle' => 'Chức năng',
+        ]);
     }
 
     /**
@@ -31,7 +34,10 @@ class RoleController extends Controller
     {
         $permissions = Permission::all()->groupBy('group');
 
-        return View('admin.role.create',compact('permissions'));
+        return View('admin.role.create',compact('permissions'))->with([
+            'pageTitle' => 'Chức năng',
+            'pageSubtitle' => 'Thêm chức năng',
+        ]);
     }
 
     /**
@@ -71,7 +77,10 @@ class RoleController extends Controller
     {
         $role = Role::with('permissions')->findOrFail($id);
         $permissions = Permission::all()->groupBy('group');
-        return View('admin.role.edit', compact('role','permissions'));
+        return View('admin.role.edit', compact('role','permissions'))->with([
+            'pageTitle' => 'Chức năng',
+            'pageSubtitle' => 'Sửa chức năng',
+        ]);
     }
 
     /**

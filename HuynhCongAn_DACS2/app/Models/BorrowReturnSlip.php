@@ -9,9 +9,7 @@ class BorrowReturnSlip extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'status',
-        'borrowed_date',
-        'returned_date',
+
         'card_id',
         'user_id'
     ];

@@ -1,9 +1,6 @@
 @extends('admin.layouts.app')
 @section('title','Create Role')
 @section('content')
-
-<h1>Roles List</h1>
-
 <div class="card border shadow-xs mb-4">
     <div class="card-header border-bottom pb-0">
       <div class="d-sm-flex align-items-center">

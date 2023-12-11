@@ -24,7 +24,10 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = $this->publisher->latest('id')->paginate(5);
-        return View('admin.publisher.index',compact('publishers'));
+        return View('admin.publisher.index',compact('publishers'))->with([
+            'pageTitle' => 'Hệ thống',
+            'pageSubtitle' => 'Nhà xuất bản',
+        ]);
     }
 
     /**
@@ -34,7 +37,10 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return View('admin.publisher.create');
+        return View('admin.publisher.create')->with([
+            'pageTitle' => 'Nhà xuất bản',
+            'pageSubtitle' => 'Thêm nhà xuất bản',
+        ]);
     }
 
     /**
@@ -70,7 +76,10 @@ class PublisherController extends Controller
     public function edit($id)
     {
         $publisher = $this->publisher->findOrFail($id);
-        return View('admin.publisher.edit', compact('publisher'));
+        return View('admin.publisher.edit', compact('publisher'))->with([
+            'pageTitle' => 'Nhà xuất bản',
+            'pageSubtitle' => 'Sửa nhà xuất bản',
+        ]);
     }
 
     /**

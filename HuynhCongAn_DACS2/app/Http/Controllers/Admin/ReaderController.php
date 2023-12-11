@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reader\ReaderCreateRequest;
+use App\Http\Requests\Reader\ReaderUpdateRequest;
 use App\Models\Card;
 use App\Models\Reader;
 use Illuminate\Http\Request;
@@ -32,7 +33,10 @@ class ReaderController extends Controller
             ->latest('cards.id')
             ->paginate(5);
 
-        return view('admin.reader.index', compact('cards'));
+        return view('admin.reader.index', compact('cards'))->with([
+            'pageTitle' => 'Danh mục',
+            'pageSubtitle' => 'Độc giả',
+        ]);
     }
 
     /**
@@ -42,7 +46,10 @@ class ReaderController extends Controller
      */
     public function create()
     {
-        return View('admin.reader.create');
+        return View('admin.reader.create')->with([
+            'pageTitle' => 'Độc giả',
+            'pageSubtitle' => 'Thêm độc giả',
+        ]);
     }
 
     /**
@@ -74,7 +81,7 @@ class ReaderController extends Controller
             'reader_id' => $reader->id,
         ]);
         // return response()->json(['success' => 'Đăng ký thẻ thành công']);
-        return redirect()->back()->with(['message' => 'Gia hạn thẻ thành công']);
+        return redirect()->back()->with(['message' => 'Thêm độc giả thành công']);
     }
 
     /**
@@ -98,7 +105,10 @@ class ReaderController extends Controller
     {
         $reader = $this->reader->find($id);
         $card = $this->card->where('reader_id', $id)->first();
-        return View('admin.reader.edit', compact('reader', 'card'));
+        return View('admin.reader.edit', compact('reader', 'card'))->with([
+            'pageTitle' => 'Độc giả',
+            'pageSubtitle' => 'Sửa độc giả',
+        ]);
     }
 
     /**
@@ -108,9 +118,29 @@ class ReaderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReaderUpdateRequest $request, $id)
     {
-        //
+        // $dataUpdate = $request->all();
+        // $reader = $this->reader->find($id);
+        // $reader->update([
+        //     'name' => $dataUpdate['name'],
+        //     'email' => $dataUpdate['email'],
+        //     'phone' => $dataUpdate['phone'],
+        //     'address' => $dataUpdate['address'],
+        //     'cccd' => $dataUpdate['cccd'],
+        //     'gender' => $dataUpdate['gender'],
+        //     'faculty' => $dataUpdate['faculty'],
+        //   'major' => $dataUpdate['major'],
+        //     'class' => $dataUpdate['class'],
+        //     'note' => $dataUpdate['note']
+        // ]);
+        // $card = $this->card->where('reader_id', $id)->first();
+        // $card->update([
+        //     'end_date' => $dataUpdate['end_date'],
+        //   'status' => $dataUpdate['status']?? true,
+        // ]);
+         return redirect()->route('readers.index')->with(['message'=>'Cập nhật thành công!']);
+
     }
     public function extendCard($id)
     {

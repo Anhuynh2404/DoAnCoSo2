@@ -21,7 +21,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->category->latest('id')->paginate(5);
-        return View('admin.category.index', compact('categories'));
+        return View('admin.category.index', compact('categories'))->with([
+            'pageTitle' => 'Danh mục',
+            'pageSubtitle' => 'Thể loại',
+        ]);;
     }
 
     /**
@@ -32,7 +35,10 @@ class CategoryController extends Controller
     public function create()
     {
         $parentCategory = $this->category->getParents();
-        return View('admin.category.create', compact('parentCategory'));
+        return View('admin.category.create', compact('parentCategory'))->with([
+            'pageTitle' => 'Thể loại',
+            'pageSubtitle' => 'Thêm thể loại',
+        ]);;
     }
 
     /**
@@ -70,7 +76,10 @@ class CategoryController extends Controller
     {
         $category = $this->category->with('children')->findOrFail($id);
         $parentCategory = $this->category->getParents();
-        return View('admin.category.edit', compact('category', 'parentCategory'));
+        return View('admin.category.edit', compact('category', 'parentCategory'))->with([
+            'pageTitle' => 'Thể loại',
+            'pageSubtitle' => 'Sửa thể loại',
+        ]);
     }
 
     /**

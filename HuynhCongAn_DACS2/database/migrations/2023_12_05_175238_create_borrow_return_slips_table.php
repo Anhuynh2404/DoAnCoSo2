@@ -17,9 +17,6 @@ return new class extends Migration
     {
         Schema::create('borrow_return_slips', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(true);
-            $table->date('borrowed_date');
-            $table->date('returned_date');
             $table->foreignIdFor(Card::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();

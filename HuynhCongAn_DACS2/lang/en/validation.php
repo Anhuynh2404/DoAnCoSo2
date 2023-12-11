@@ -166,6 +166,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'book_ids' => [
+            'max' => 'Số lượng sách mượn không được vượt quá 5.',
+        ],
     ],
 
     /*

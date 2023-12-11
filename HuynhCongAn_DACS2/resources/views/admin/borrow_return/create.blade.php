@@ -39,15 +39,15 @@
                         @enderror
                     </div>
 
-                    <div class="form-floating mb-3">
+                    {{-- <div class="form-floating mb-3">
                         <select class="form-select" name="user_id" id="user_id" aria-label="Người cho mượn">
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
                         <label for="user_id">Người cho mượn</label>
-                    </div>
-
+                    </div> --}}
+                    <input type="hidden" name="user_id">
                     <div class="form-floating mb-3">
                         <textarea class="form-control" name="note" id="ghiChu" type="text" placeholder="Ghi chú" style="height: 10rem;"
                             data-sb-validations="required" value="{{ old('note') }}"></textarea>
@@ -62,7 +62,7 @@
                         </select>
                         <label for="book_id">Chọn ấn phẩm</label>
                     </div> --}}
-                    <div class="form-floating mb-3">
+                    {{-- <div class="form mb-3">
                         <select class="form-control mySelect" name="book_id[]" multiple="multiple">
                             @foreach ($books as $book)
                                 <option value="{{ $book->id }}"
@@ -75,7 +75,55 @@
                         @error('book_id[]')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
+                    </div> --}}
+
+                    {{-- <label for="details">Chọn sách:</label>
+                    <div id="details-container">
+                        <div class="detail">
+                            <select name="details[0][book_id]">
+                                @foreach ($books as $book)
+                                    <option value="{{ $book->id }}">{{ $book->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
+
+
+
+
+                     <div class="form-group ">
+                        <label for="exampleFormControlSelect1">Chọn sách</label>
+                        <select class="form-control mySelect" name="book_ids[]" class="form-select" id="multiple-select-field" data-placeholder="Choose anything" multiple >
+                            @foreach ($books as $book)
+                                <option value="{{ $book->id }}"
+                                    {{ in_array($book->id, old('book_ids', [])) ? 'selected' : '' }}>
+                                    {{ $book->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('book_ids')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
+
+                    {{-- <div class="form-group">
+                        <label for="selectedBooks">Thông tin sách đã chọn:</label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên sách</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="selectedBooksTable">
+                                <!-- Thông tin sách đã chọn sẽ hiển thị ở đây -->
+                            </tbody>
+                        </table>
+                        <span id="errorMessage" class="text-danger"></span>
+                    </div>  --}}
+
+
 
                     <div class="mt-4 d-flex justify-content-end">
                         <a class="btn btn-white btn-lg me-2" type="submit" href="{{ route('slips.index') }}">Hủy</a>
@@ -86,22 +134,17 @@
             </form>
 
         </div>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-        $('.mySelect').select2();
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.mySelect').select2();
+        });
+    </script>
+
+
+
+    <script src="{{ asset('admin/assets/js/slip/slip.js') }}"></script>
 @endsection

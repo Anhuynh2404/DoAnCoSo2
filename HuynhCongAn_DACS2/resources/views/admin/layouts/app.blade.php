@@ -48,31 +48,21 @@
             navbar-scroll="true">
             <div class="container-fluid py-1 px-2">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    {{-- <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                href="javascript:;">Dashboard</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                                href="javascript:;">{{ $pageTitle }}</a></li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $pageSubtitle }}</li>
                     </ol>
-                    <h6 class="font-weight-bold mb-0">Dashboard</h6>
+                    <h4 class="font-weight-bold mb-0">{{ $pageSubtitle }}</h4> --}}
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 px-5" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group">
-                            <span class="input-group-text text-body bg-white  border-end-0 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </span>
-                            <input type="text" class="form-control ps-0" placeholder="Search">
-                        </div>
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg"
+                                <svg height="26" width="26" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" fill="currentColor" class="cursor-pointers">
                                     <path fill-rule="evenodd"
                                         d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
@@ -123,8 +113,8 @@
                                     <a class="dropdown-item border-radius-md" href="javascript:;">
                                         <div class="d-flex py-1">
                                             <div class="avatar avatar-sm border-radius-sm bg-slate-800  me-3  my-auto">
-                                                <svg width="12px" height="12px" viewBox="0 0 43 36"
-                                                    version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink">
                                                     <title>credit-card</title>
                                                     <g stroke="none" stroke-width="1" fill="none"
@@ -161,83 +151,87 @@
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             {{-- @guest --}}
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('admin/assets/img/img-1.jpg') }}" alt=""
-                                        class="avatar avatar-sm" alt="avatar">
-                                </button>
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('admin/assets/img/img-1.jpg') }}" alt=""
+                                    class="avatar avatar-sm" alt="avatar">
+                            </button>
                             {{-- @else --}}
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{-- Ảnh của người dùng --}}
-                                    {{-- <img src="{{ asset('/upload/' . Auth::user()->images->last()->url) }}"
-                                        class="avatar avatar-sm" alt="avatar"> --}}
-                                </button>
                             {{-- @endguest --}}
                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                                 aria-labelledby="dropdownMenuButton">
                                 @guest
                                     <li class="mb-2">
-                                        <a href="{{ route('login') }}" class="dropdown-item border-radius-md">
+                                        <a class="dropdown-item border-radius-md" href="{{ route('login') }}">
                                             <div class="d-flex py-1">
+                                                <div class="my-auto">
+                                                    <img src="../assets/img/team-2.jpg"
+                                                        class="avatar avatar-sm border-radius-sm  me-3 ">
+                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                        <span class="font-weight-bold">{{__('Đăng nhập')}}</span>
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        <span class="font-weight-bold">{{ __('Đăng nhập') }}</span>
+                                                    </h6>
                                                 </div>
                                             </div>
                                         </a>
                                     </li>
-
                                 @else
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg"
-                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
+                                    <li class="mb-2">
+                                        <a class="dropdown-item border-radius-md" href="">
+                                            <div class="d-flex py-1 w-100">
+                                                <div class="my-auto w-30">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center w-70">
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        <span class="font-weight-bold">Thông tin</span>
+                                                    </h6>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">Thông tin tài khoản</span>
-                                                </h6>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a class="dropdown-item border-radius-md" href="">
+                                            <div class="d-flex py-1 w-100">
+                                                <div class="my-auto w-30">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"
+                                                        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                                        <path
+                                                            d="M336 352c97.2 0 176-78.8 176-176S433.2 0 336 0S160 78.8 160 176c0 18.7 2.9 36.8 8.3 53.7L7 391c-4.5 4.5-7 10.6-7 17v80c0 13.3 10.7 24 24 24h80c13.3 0 24-10.7 24-24V448h40c13.3 0 24-10.7 24-24V384h40c6.4 0 12.5-2.5 17-7l33.3-33.3c16.9 5.4 35 8.3 53.7 8.3zM376 96a40 40 0 1 1 0 80 40 40 0 1 1 0-80z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center w-70">
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        <span class="font-weight-bold">Đổi mật khẩu</span>
+                                                    </h6>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg"
-                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">Đổi mật khẩu</span>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="../assets/img/team-2.jpg"
-                                                    class="avatar avatar-sm border-radius-sm  me-3 ">
+                                            <div class="d-flex py-1 w-100">
+                                                <div class="my-auto w-30">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"
+                                                        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                                                        <path
+                                                            d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center w-70">
+                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                        <span class="font-weight-bold">{{ __('Đăng xuất') }}</span>
+                                                    </h6>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">{{ __('Đăng xuất') }}</span>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf
                                         </form>
-                                </li>
+                                    </li>
 
                                 @endguest
                             </ul>
@@ -646,6 +640,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
     <script src=" https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script>
     <script src="{{ asset('admin/base/base.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     @yield('script')
 </body>
 

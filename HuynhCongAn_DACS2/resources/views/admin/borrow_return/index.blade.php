@@ -5,14 +5,41 @@
 
     <div class="card border shadow-xs mb-4">
         <div class="card-header border-bottom pb-0">
-            <div class="d-sm-flex align-items-center mb-3">
-                <div>
-                    <h6 class="font-weight-semibold text-lg mb-0">Danh sách phiếu mượn</h6>
-                    <p class="text-sm mb-sm-0">These are details about the last transactions</p>
+            <div class="d-sm-flex align-items-center mt-3">
+                <select class="form-select w-10 mb-3 me-2" aria-label="Default select example" >
+                    <option selected >Trạng thái</option>
+                    <option value="1">Đã trả</option>
+                    <option value="2">Chưa trả</option>
+                  </select>
+                  <select class="form-select w-15 mb-3 me-2" aria-label="Default select example" >
+                    <option selected>Thể loại</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <select class="form-select w-20 mb-3" aria-label="Default select example" >
+                    <option selected>Nhà xuất bản</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                <div class="ms-md-auto d-flex w-35 me-2 mb-3">
+                    <form action="{{ route('slips.search') }}" method="GET">
+                        <div class="input-group">
+                            <span class="input-group-text text-body bg-white border-end-0 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </span>
+                            <input type="text" name="search" class="form-control" id="searchInput" placeholder="Search">
+                        </div>
+                    </form>
                 </div>
-                <div class="ms-auto d-flex">
+                <div class="ms-auto d-flex mb-3">
                     <a href="{{ route('slips.create') }} " type="button"
-                        class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0 me-2">
+                        class="btn btn-sm btn-success btn-icon d-flex align-items-center mb-0 me-2">
                         <span class="btn-inner--icon">
                             <span class="btn-inner--icon">
                                 <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -29,7 +56,7 @@
 
             </div>
         </div>
-        <div class="card-body px-0 py-0">
+        <div class="card-body px-0 py-0" id="searchResults">
             <div class="table-responsive p-0">
                 <table class="table align-items-center justify-content-center mb-0">
                     <thead class="bg-gray-100">
@@ -56,7 +83,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-sm font-weight-normal mb-0">{{ $slip->borrowed_date }}</p>
+                                    <p class="text-sm font-weight-normal mb-0">{{ $slip['details'][0]['borrowed_date'] }}</p>
                                 </td>
                                 <td>
                                     <span class="text-sm font-weight-normal">{{ $slip->card->reader->name }}</span>
@@ -68,13 +95,13 @@
                                     <span class="text-sm font-weight-normal">{{ $slip->user->name }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-sm font-weight-normal">{{ $slip->details->count() }}</span>
+                                    <span class="text-sm font-weight-normal">{{ $slip['details'][0]['books_count'] ?? 0 }}/5</span>
                                 </td>
                                 <td>
-                                    @if ($slip->returned_date < now())
-                                        <p class="text-danger text-sm mb-0">Quá hạn: {{ $slip->returned_date }}</p>
+                                    @if ($slip['details'][0]['returned_date']< now())
+                                        <p class="text-danger text-sm mb-0">Quá hạn: {{ $slip['details'][0]['returned_date'] }}</p>
                                     @else
-                                        <p class="text-secondary text-sm mb-0">{{ $slip->returned_date }}</p>
+                                        <p class="text-success text-sm mb-0">{{ $slip['details'][0]['returned_date'] }}</p>
                                     @endif
                                 </td>
                                 <td>
@@ -83,7 +110,7 @@
                                         @csrf
                                         @method('post')
                                         <button type="submit" class="border border-0 bg-transparent p-0 cursor-pointer">
-                                            @if ($slip->status == 1)
+                                            @if ($slip['details'][0]['status'] == 1)
                                             <span class="badge badge-sm border border-danger text-danger bg-danger">
                                                 <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -105,43 +132,53 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td class=" d-flex">
-                                    <div class="align-items-center d-flex">
-                                        <a href=""
-                                            class="text-secondary font-weight-bold text-xs" data-bs-toggle="tooltip"
-                                            data-bs-title="Edit user">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
-                                                viewBox="0 0 512 512">
-                                                <path
-                                                    d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
-                                            </svg>
-                                        </a>
-                                        <a href="" class="text-secondary font-weight-bold text-xs px-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14"
-                                                viewBox="0 0 448 512">
-                                                <path
-                                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                                            </svg>
+                                <td class="align-middle">
+                                    <div class="d-flex mt-2">
+                                        <div>
+                                            <a href="{{ route('slips.edit', $slip->id) }}" type="button"
+                                                class="btn btn-info btn-icon px-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                    stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="px-2">
+                                            <form action="{{ route('readers.destroy', $slip->id) }}" method="post"
+                                                id="form-delete{{ $slip->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-icon px-3 btn-delete"
+                                                    data-id="{{ $slip->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="">
+                                            <form action="" method="POST">
+                                                @csrf
+                                                <button  class="btn btn-light btn-icon px-3 btn-extend" type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384v38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM288 368a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm211.3-43.3c-6.2-6.2-16.4-6.2-22.6 0L416 385.4l-28.7-28.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6l40 40c6.2 6.2 16.4 6.2 22.6 0l72-72c6.2-6.2 6.2-16.4 0-22.6z"/></svg>
 
-                                        </a>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <form action="" method="POST">
-                                        @csrf
-                                        <button class="border border-0 bg-transparent p-0 cursor-pointer" type="submit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18"
-                                                viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
-                                                <path
-                                                    d="M512 80c8.8 0 16 7.2 16 16V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V96c0-8.8 7.2-16 16-16H512zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM208 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16H304c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80H176zM376 144c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H376zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24H376z" />
-                                            </svg>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
-                <div class="" style="color: white">
+                <div class="mt-3 px-4" style="color: white">
                     {{ $slips->links()  }}
                 </div>
             </div>
@@ -158,4 +195,54 @@
             swal("Thông báo!", "{{ session('message') }}", "success");
         </script>
     @endif
+    <script>
+        <script>
+    $(document).ready(function () {
+        $('#searchInput').keypress(function (e) {
+            if (e.which === 13) {  // Kiểm tra nếu phím Enter được nhấn
+                e.preventDefault();
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            // Lấy giá trị từ ô tìm kiếm
+            var searchTerm = $('#searchInput').val();
+
+            // Gửi yêu cầu tìm kiếm, bạn có thể sử dụng Ajax để gửi yêu cầu đến máy chủ
+            // và nhận kết quả tìm kiếm về, sau đó cập nhật nội dung trang web.
+            // Ở đây chỉ là ví dụ cơ bản.
+            alert('Performing search for: ' + searchTerm);
+        }
+    });
+</script>
+
+    </script>
+    <script>
+        // Handle form submission with AJAX
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Fetch the search results
+            fetch(this.action + '?' + new URLSearchParams(new FormData(this)))
+                .then(response => response.json())
+                .then(data => {
+                    // Update the results container with the received data
+                    document.getElementById('searchResults').innerHTML = renderSearchResults(data);
+                });
+        });
+
+        // Function to render search results as HTML
+        function renderSearchResults(data) {
+            // Customize this function based on how you want to display the results
+            let html = '<ul>';
+            data.data.forEach(slip => {
+                html += `<li>${slip.id}: ${slip.card.reader.name}</li>`;
+            });
+            html += '</ul>';
+
+            // Return the HTML
+            return html;
+        }
+    </script>
 @endsection

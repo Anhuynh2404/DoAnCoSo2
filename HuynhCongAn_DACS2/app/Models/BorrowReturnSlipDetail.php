@@ -9,14 +9,22 @@ class BorrowReturnSlipDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
+        'status',
+        'quantity',
+        'borrowed_date',
+        'returned_date',
         'note',
-        'book_id',
         'borrow_return_slip_id'
     ];
 
-    public function book()
+    public function books()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsToMany(Book::class, 'book_borrow_slip', 'borrow_return_slip_detail_id', 'book_id');
+    }
+
+    public function slip()
+    {
+        return $this->belongsTo(BorrowReturnSlip::class, 'borrow_return_slip_id');
     }
 }
